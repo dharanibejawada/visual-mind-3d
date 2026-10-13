@@ -36,12 +36,18 @@ function getAuthHeaders(customHeaders: Record<string, string> = {}): Record<stri
 async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
     let errorData: any = {};
+    let rawText = '';
     try {
-      errorData = await res.json();
+      rawText = await res.text();
+      errorData = JSON.parse(rawText);
     } catch {
       // not json
     }
-    const message = errorData.message || `Request failed with HTTP status ${res.status}`;
+    const message =
+      errorData.message ||
+      errorData.error ||
+      (rawText && rawText.length < 150 && !rawText.includes('<html') ? rawText : null) ||
+      `Request failed with HTTP status ${res.status}`;
     throw new ApiError(message, res.status, errorData.details);
   }
   return res.json();
