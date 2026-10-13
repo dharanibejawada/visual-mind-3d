@@ -34,6 +34,9 @@ export const LessonWorkspacePage: React.FC = () => {
   const [selectedComponentId, setSelectedComponentId] = useState<string>('');
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
+  const [isAgentSpeaking, setIsAgentSpeaking] = useState(false);
+  const [isAgentThinking, setIsAgentThinking] = useState(false);
+  const [agentSpeechText, setAgentSpeechText] = useState('');
 
   useEffect(() => {
     if (!id) return;
@@ -158,6 +161,9 @@ export const LessonWorkspacePage: React.FC = () => {
             onStepChange={handleStepChange}
             selectedComponentId={selectedComponentId}
             onSelectComponent={(id) => setSelectedComponentId(id)}
+            isSpeaking={isAgentSpeaking}
+            isThinking={isAgentThinking}
+            speechText={agentSpeechText}
           />
         </div>
 
@@ -270,6 +276,9 @@ export const LessonWorkspacePage: React.FC = () => {
                 lesson={lesson}
                 selectedComponentId={selectedComponentId}
                 activeStepId={lesson.visualization.steps[activeStepIndex]?.id}
+                onSpeakingChange={setIsAgentSpeaking}
+                onThinkingChange={setIsAgentThinking}
+                onSpeechTextChange={setAgentSpeechText}
               />
             )}
 

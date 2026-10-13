@@ -24,6 +24,9 @@ interface Props {
   onStepChange: (index: number) => void;
   selectedComponentId?: string;
   onSelectComponent: (id: string) => void;
+  isSpeaking?: boolean;
+  isThinking?: boolean;
+  speechText?: string;
 }
 
 export const ViewerContainer: React.FC<Props> = ({
@@ -32,6 +35,9 @@ export const ViewerContainer: React.FC<Props> = ({
   onStepChange,
   selectedComponentId,
   onSelectComponent,
+  isSpeaking = false,
+  isThinking = false,
+  speechText = '',
 }) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [speed, setSpeed] = useState(1.0);
@@ -144,6 +150,9 @@ export const ViewerContainer: React.FC<Props> = ({
                 onSelectComponent={onSelectComponent}
                 playbackSpeed={speed}
                 isPlaying={isPlaying}
+                isSpeaking={isSpeaking}
+                isThinking={isThinking}
+                speechText={speechText}
               />
             </Suspense>
             <OrbitControls

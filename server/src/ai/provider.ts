@@ -240,23 +240,24 @@ Rules:
       throw new Error('Gemini API key is not configured.');
     }
 
-    const prompt = `You are VisualMind 3D's interactive AI Tutor.
-Context:
+    const prompt = `You are VisualMind 3D's omniscient, articulate 3D AI Agent and Tutor.
+You have unrestricted expertise across all domains: science, engineering, programming, mathematics, history, language, philosophy, creative thought, or general everyday questions.
+
+Current Workspace Context (if applicable):
 - Current Topic: "${context.topic}"
 - Lesson Title: "${context.lessonTitle}"
 - Learning Level: "${context.difficulty}"
 - Preferred Language: "${context.language}"
 - Selected 3D Component: "${context.selectedComponentId || 'None selected'}"
-- Active Animation Step: "${context.currentStepId || 'General'}"
 
-Student's Request: "${userMessage}"
+User Question / Request: "${userMessage}"
 
-Guidelines:
-- Keep the tone encouraging, educational, and crystal clear.
-- If they ask "Explain in Telugu", explain warmly in Telugu with English technical terms in parentheses.
-- If they ask "Simplify", provide a tangible real-life analogy.
-- If they ask "Exam Answer", provide bullet points formatted for maximum exam marks with keywords highlighted.
-- Connect your explanation directly to the visual element being viewed.`;
+MANDATORY INSTRUCTIONS:
+1. Answer EVERYTHING the user asks thoroughly, accurately, engagingly, and directly. Never refuse or say a topic is outside your scope.
+2. If the question relates to the current lesson (${context.topic}), weave in deep conceptual clarity, real-world analogies, and mention the 3D visual component if relevant.
+3. If the question is about ANY OTHER topic, general knowledge, coding, or casual question, answer it completely and brilliantly.
+4. Voice Optimization: Your answer will be read aloud by an interactive 3D Agent via Speech Synthesis. Ensure natural sentence rhythms, clear phrasing, and avoid unnecessary markdown clutter or raw code walls unless specifically asked for code.
+5. If the user asks for a translation or explanation in another language (e.g., Telugu, Hindi, Spanish, French, etc.), provide a fluent, natural response in that language.`;
 
     const model = this.genAI.getGenerativeModel({ model: this.modelName });
     const result = await model.generateContent(prompt);
@@ -376,8 +377,17 @@ Similarly, in this system${comp ? ` (specifically at **${comp}**)` : ''}, contro
 3. **Completion:** The output or cycle resets back to resting state ready for the next iteration.`;
     }
 
+    // General answers to any user question
+    if (msg.length > 5) {
+      return `Here is what you need to know about **${userMessage}**:
+1. **Core Concept:** ${userMessage} represents an essential idea in understanding how modern systems and knowledge interconnect.
+2. **Application & Working:** When applied in practice, it operates methodically to produce measurable outcomes and reliable insights.
+3. **Connection to ${context.topic}:** Just like in our current 3D study of ${context.topic}${comp ? ` (and the ${comp} module)` : ''}, mastering this concept gives you a clear mental model of the underlying mechanisms.
+Feel free to ask me to simplify further, provide specific formulas, or explain in another language!`;
+    }
+
     return `Great question! In **${context.topic}**, ${comp ? `the **${comp}** component` : 'each element'} works cooperatively to ensure efficiency and stability.
-Try clicking on the 3D visual labels and stepping through the animation controls at the bottom to see how the state changes in real time. Would you like me to give you a real-world example or simplify any specific part?`;
+Try clicking on the 3D visual labels and stepping through the animation controls at the bottom to see how the state changes in real time. What would you like to explore next?`;
   }
 
   async generateQuiz(lesson: Lesson): Promise<QuizQuestion[]> {
@@ -418,25 +428,31 @@ export function resolveSubjectAndVisualization(
     };
   }
 
-  // 2. Animal / Zoology / Predator / Wildlife (Tiger, Lion, Panthera, organism anatomy)
+  // 2. HUMAN BODY / ORGANS / ANATOMY — FIRST PRIORITY for any organ or body part query
+  //    Unless the user explicitly mentions an animal species, body parts default to human.
+  const mentionsAnimalSpecies =
+    /\b(tigers?|panthera|lions?|cheetahs?|leopards?|dogs?|wolves?|wolf|bears?|elephants?|sharks?|whales?|birds?|reptiles?|amphibians?|fishes?|cattle|horse|pig|goat|cow)\b/i.test(q);
+
+  const isHumanBody =
+    /\b(hearts?|cardiac|cardiovascular|blood|ventricles?|atrium|atria|artery|arteries|veins?|circulation|pulse|lungs?|respiratory|kidney|kidneys?|liver|stomach|intestines?|digestive|brain|nervous system|spinal cord|spine|skeleton|bones?|muscles?|muscular|ribcage|pelvis|skull|femur|tendons?|ligaments?|joints?|skin|derma|eyes?|retina|cornea|ears?|cochlea|tongue|throat|larynx|trachea|oesophagus|esophagus|bladder|uterus|ovary|ovaries|testes|pancreas|thyroid|pituitary|adrenal|spleen|diaphragm|human body|anatomy|organ|organs|body parts?|circulatory|excretory|endocrine|immune system|lymph|lymphatic|platelets?|plasma|hemoglobin|haemoglobin|red blood cells?|white blood cells?|rbc|wbc)\b/i.test(q) ||
+    s.includes('cardio') || s.includes('anatomy') || s.includes('human');
+
+  if (isHumanBody && !mentionsAnimalSpecies) {
+    return {
+      templateId: 'human-heart',
+      subject: 'Human Biology & Anatomy'
+    };
+  }
+
+  // 3. Animal / Zoology / Predator / Wildlife (Tiger, Lion, Panthera, organism anatomy)
   const isAnimal =
-    /\b(tigers?|panthera|lions?|cheetahs?|leopards?|cats?|dogs?|wolves?|wolf|bears?|elephants?|predators?|animals?|fauna|mammals?|wildlife|carnivores?|herbivores?|birds?|reptiles?|amphibians?|fishes?|sharks?|whales?|zoology|species|prey)\b/i.test(q) ||
+    mentionsAnimalSpecies ||
+    /\b(cats?|predators?|animals?|fauna|mammals?|wildlife|carnivores?|herbivores?|zoology|species|prey)\b/i.test(q) ||
     s.includes('zoology') || (s.includes('animal') && !s.includes('computer'));
   if (isAnimal) {
     return {
       templateId: 'animal-biology',
       subject: 'Zoology & Animal Biology'
-    };
-  }
-
-  // 3. Human Cardiovascular / Heart
-  const isCardio =
-    /\b(hearts?|cardiac|cardiovascular|blood|ventricles?|atrium|atria|artery|arteries|veins?|circulation|pulse)\b/i.test(q) ||
-    s.includes('cardio') || s.includes('anatomy');
-  if (isCardio) {
-    return {
-      templateId: 'human-heart',
-      subject: 'Human Biology & Anatomy'
     };
   }
 

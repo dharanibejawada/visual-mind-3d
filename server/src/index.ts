@@ -19,7 +19,7 @@ import { createSystemRouter } from './routes/system.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
 export const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 
 // Security & Parsing Middlewares
 app.use(cors({
