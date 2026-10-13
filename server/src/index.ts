@@ -102,3 +102,5 @@ if (process.env.NODE_ENV !== 'test') {
   process.on('SIGINT', shutdown);
   process.on('SIGTERM', shutdown);
 }
+
+export default app;
