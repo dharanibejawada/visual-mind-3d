@@ -72,8 +72,8 @@ app.get('/', (req, res) => {
 // Centralized Error Handling
 app.use(errorHandler);
 
-// Start Server if not imported by tests
-if (process.env.NODE_ENV !== 'test') {
+// Start Server if not imported by tests and not running on Vercel Serverless
+if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
   const server = app.listen(PORT, () => {
     console.log(`=======================================================`);
     console.log(`🚀 VisualMind 3D Backend running at http://localhost:${PORT}`);
