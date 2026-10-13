@@ -2,6 +2,7 @@
   "name": "visualmind-3d-server",
   "version": "1.0.0",
   "description": "Backend API for VisualMind 3D Learning Platform",
+  "type": "module",
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",

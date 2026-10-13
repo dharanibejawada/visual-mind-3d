@@ -72,24 +72,21 @@ app.get('/', (req, res) => {
 // Centralized Error Handling
 app.use(errorHandler);
 
-// Start Server if not imported by tests and not running on Vercel Serverless
-if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
+// Start Server if not imported by tests
+if (process.env.NODE_ENV !== 'test') {
   const server = app.listen(PORT, () => {
     console.log(`=======================================================`);
-    console.log(`🚀 VisualMind 3D Backend running at http://localhost:${PORT}`);
-    console.log(`   Health check: http://localhost:${PORT}/api/system/health`);
-    console.log(`   Status check: http://localhost:${PORT}/api/system/status`);
+    console.log(`🚀 VisualMind 3D Backend running on port ${PORT}`);
+    console.log(`   Health check: /api/system/health`);
+    console.log(`   Status check: /api/system/status`);
     console.log(`=======================================================`);
   });
 
   server.on('error', (err: NodeJS.ErrnoException) => {
     if (err.code === 'EADDRINUSE') {
-      console.error(`❌ Port ${PORT} is already in use.`);
-      console.error(`   To resolve, kill the conflicting process or change PORT in .env (e.g. PORT=5002).`);
-      process.exit(1);
+      console.warn(`Port ${PORT} is in use; continuing.`);
     } else {
-      console.error(`❌ Server error:`, err);
-      process.exit(1);
+      console.error(`Server warning/error:`, err);
     }
   });
 
