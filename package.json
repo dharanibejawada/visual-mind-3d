@@ -1,0 +1,27 @@
+{
+  "name": "visualmind-3d",
+  "version": "1.0.0",
+  "description": "VisualMind 3D - AI-Powered 3D Educational Learning Platform",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "build": "npm --prefix server run build && npm --prefix client run build",
+    "test": "npm --prefix server run test && npm --prefix client run test",
+    "install:all": "npm install && npm --prefix server install && npm --prefix client install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "keywords": [
+    "threejs",
+    "react-three-fiber",
+    "education",
+    "ai",
+    "gemini",
+    "3d-learning",
+    "fullstack"
+  ],
+  "author": "VisualMind 3D Team",
+  "license": "MIT"
+}
