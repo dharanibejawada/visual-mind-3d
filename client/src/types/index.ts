@@ -110,3 +110,12 @@ export interface UserProgress {
     updatedAt: string;
   }>;
 }
+
+export interface AuthUser {
+  id: string;
+  email: string;
+  displayName?: string;
+  avatarUrl?: string;
+  isGuest?: boolean;
+}
+

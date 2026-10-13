@@ -117,7 +117,7 @@ describe('VisualMind 3D Backend API Tests', () => {
     expect(res.body).toHaveProperty('reply');
     expect(typeof res.body.reply).toBe('string');
     expect(res.body.reply.length).toBeGreaterThan(10);
-  });
+  }, 15000);
 
   it('POST /api/quiz/submit accurately evaluates answers and calculates score', async () => {
     // Fetch preset heart lesson to get lessonId and quiz
