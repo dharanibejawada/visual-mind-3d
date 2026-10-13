@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "VisualMind 3D - AI-Powered 3D Educational Learning Platform",
   "type": "module",
+  "workspaces": [
+    "server",
+    "client"
+  ],
   "scripts": {
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "npm --prefix server run dev",
