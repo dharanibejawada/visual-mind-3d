@@ -1,6 +1,8 @@
 import { Lesson, QuizResult, SystemStatus, UserProgress, Difficulty } from '../types';
 
-const API_BASE = '/api';
+const rawBase = (import.meta.env.VITE_API_BASE_URL || 'https://visual-mind-3d.onrender.com/api').trim();
+const cleanBase = rawBase.replace(/\/+$/, '');
+const API_BASE = cleanBase.endsWith('/api') ? cleanBase : `${cleanBase}/api`;
 
 export class ApiError extends Error {
   status: number;
