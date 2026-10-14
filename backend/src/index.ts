@@ -4,7 +4,9 @@ import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
 import path from 'path';
 
-// Load environment variables from workspace root or current directory
+// Load environment variables from workspace root or backend directory
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), 'backend/.env') });
 dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 dotenv.config();
 
@@ -72,8 +74,7 @@ app.get('/', (req, res) => {
 // Centralized Error Handling
 app.use(errorHandler);
 
-// Start Server if not imported by tests
-if (process.env.NODE_ENV !== 'test') {
+if (!process.env.VERCEL) {
   const server = app.listen(PORT, () => {
     console.log(`=======================================================`);
     console.log(`🚀 VisualMind 3D Backend running on port ${PORT}`);

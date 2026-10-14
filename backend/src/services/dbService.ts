@@ -18,8 +18,16 @@ export interface ProgressRecord {
   updatedAt: string;
 }
 
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+export const supabase: SupabaseClient | null =
+  supabaseUrl && supabaseKey
+    ? createClient(supabaseUrl, supabaseKey)
+    : null;
+
 export class DbService {
-  private supabase: SupabaseClient | null = null;
+  private supabase: SupabaseClient | null = supabase;
   // In-memory / guest mode store
   private memoryLessons: Map<string, Lesson> = new Map();
   private memorySaved: Map<string, SavedLessonRecord> = new Map();
@@ -27,16 +35,8 @@ export class DbService {
   private memoryProgress: Map<string, ProgressRecord> = new Map();
 
   constructor() {
-    const url = process.env.SUPABASE_URL;
-    const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
-
-    if (url && key && url !== 'https://your-project.supabase.co' && key !== 'your_supabase_anon_key_here') {
-      try {
-        this.supabase = createClient(url, key);
-        console.log('✓ Connected to Supabase PostgreSQL database.');
-      } catch (err) {
-        console.warn('! Supabase initialization failed, running in Guest In-Memory mode:', err);
-      }
+    if (this.supabase) {
+      console.log('✓ Connected to Supabase PostgreSQL database.');
     } else {
       console.log('ℹ Supabase credentials not set. VisualMind 3D is running in Guest In-Memory Persistence Mode.');
     }
@@ -132,9 +132,28 @@ export class DbService {
   }
 
   async getSavedLessons(userId?: string | null): Promise<Lesson[]> {
-    const list: Lesson[] = [];
+    if (this.supabase && userId) {
+      try {
+        const { data, error } = await this.supabase
+          .from('lesson_bookmarks')
+          .select('lesson_id')
+          .eq('user_id', userId);
 
-    // Memory saved lessons
+        if (!error && data && data.length > 0) {
+          const lessons: Lesson[] = [];
+          for (const item of data) {
+            const lesson = await this.getLessonById(item.lesson_id);
+            if (lesson) lessons.push(lesson);
+          }
+          if (lessons.length > 0) return lessons;
+        }
+      } catch (err) {
+        console.error('Supabase getSavedLessons error:', err);
+      }
+    }
+
+    // In-memory fallback
+    const list: Lesson[] = [];
     for (const record of this.memorySaved.values()) {
       list.push(record.lesson);
     }
@@ -209,6 +228,44 @@ export class DbService {
     averageScore: number;
     progressList: ProgressRecord[];
   }> {
+    if (this.supabase && userId) {
+      try {
+        const { data: progressData, error: progressErr } = await this.supabase
+          .from('learning_progress')
+          .select('*')
+          .eq('user_id', userId);
+
+        const { data: quizData, error: quizErr } = await this.supabase
+          .from('quiz_attempts')
+          .select('score, total_questions')
+          .eq('user_id', userId);
+
+        if (!progressErr && !quizErr && progressData && quizData && (progressData.length > 0 || quizData.length > 0)) {
+          const completedCount = progressData.filter(p => p.completion_status === 'completed').length;
+          let totalScore = 0;
+          for (const q of quizData) {
+            const pct = q.total_questions > 0 ? (q.score / q.total_questions) * 100 : 0;
+            totalScore += pct;
+          }
+          return {
+            completedLessonsCount: completedCount,
+            totalQuizAttempts: quizData.length,
+            averageScore: quizData.length > 0 ? Math.round(totalScore / quizData.length) : 0,
+            progressList: progressData.map(p => ({
+              userId: p.user_id,
+              lessonId: p.lesson_id,
+              completedSteps: p.completed_steps || [],
+              completionStatus: p.completion_status,
+              lastVisitedStepId: p.last_visited_step_id,
+              updatedAt: p.updated_at,
+            })),
+          };
+        }
+      } catch (err) {
+        console.error('Supabase getUserProgress error:', err);
+      }
+    }
+
     let completedCount = 0;
     const progressList = Array.from(this.memoryProgress.values());
 

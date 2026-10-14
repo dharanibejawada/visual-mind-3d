@@ -84,7 +84,7 @@ Built with **Three.js** and **React Three Fiber (R3F)** with procedural models a
 
 ```
 visualmind-3d/
-├── client/                           # Frontend React Application
+├── frontend/                         # Frontend React Application
 │   ├── src/
 │   │   ├── components/               # Navbar, Footer
 │   │   ├── features/
@@ -111,9 +111,10 @@ visualmind-3d/
 │   │   └── index.css
 │   ├── vite.config.ts
 │   ├── tailwind.config.js
+│   ├── .env
 │   └── package.json
 │
-├── server/                           # Backend Express REST API
+├── backend/                          # Backend Express REST API
 │   ├── src/
 │   │   ├── ai/                       # provider.ts, presets.ts
 │   │   ├── controllers/              # lessonController, tutorController, quizController
@@ -124,14 +125,13 @@ visualmind-3d/
 │   │   ├── types/                    # index.ts, declarations.d.ts
 │   │   ├── test/                     # server.test.ts (Vitest tests)
 │   │   └── index.ts                  # Server entrypoint
+│   ├── supabase/
+│   │   └── migrations/               # PostgreSQL schema & migrations
 │   ├── tsconfig.json
+│   ├── .env
 │   └── package.json
 │
-├── supabase/
-│   └── migrations/
-│       └── 001_initial_schema.sql    # PostgreSQL DDL, RLS policies & indexes
-│
-├── .env.example                      # Environment variables template
+├── .env                              # Workspace environment variables
 ├── .gitignore
 ├── package.json                      # Root orchestration scripts
 └── README.md
@@ -147,10 +147,7 @@ cd c:\Users\dhara\OneDrive\Documents\Desktop\3d
 ```
 
 ### 2. Configure Environment Variables (Optional)
-Copy `.env.example` to `.env`:
-```powershell
-Copy-Item .env.example .env
-```
+Ensure `.env` exists in root or backend:
 *(VisualMind 3D works out-of-the-box in Demo Mode even if left unchanged!)*
 
 To enable live Google Gemini AI generation:
@@ -160,8 +157,8 @@ To enable live Google Gemini AI generation:
 ### 3. Install Dependencies
 ```powershell
 npm install
-npm --prefix server install
-npm --prefix client install
+npm --prefix backend install
+npm --prefix frontend install
 ```
 
 ### 4. Run Both Frontend and Backend Concurrently
@@ -181,12 +178,12 @@ The application will be live at:
 
 Run backend tests:
 ```powershell
-npm --prefix server test
+npm --prefix backend test
 ```
 
 Run frontend tests:
 ```powershell
-npm --prefix client test
+npm --prefix frontend test
 ```
 
 Run all tests together:
@@ -201,8 +198,8 @@ npm test
 ```powershell
 npm run build
 ```
-- Server outputs compiled JavaScript to `server/dist/`.
-- Client outputs optimized production static assets to `client/dist/`.
+- Backend outputs compiled JavaScript to `backend/dist/`.
+- Frontend outputs optimized production static assets to `frontend/dist/`.
 
 ---
 

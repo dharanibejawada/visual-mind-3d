@@ -1,5 +1,5 @@
 {
-  "name": "visualmind-3d-server",
+  "name": "visualmind-3d-backend",
   "version": "1.0.0",
   "description": "Backend API for VisualMind 3D Learning Platform",
   "type": "module",
