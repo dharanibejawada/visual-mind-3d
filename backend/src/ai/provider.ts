@@ -41,24 +41,26 @@ Supported visualization templates:
 ${SupportedTemplates.map(t => `- "${t}"`).join('\n')}
 
 MANDATORY TEMPLATE SELECTION RULES:
-1. Animal or Zoology topics (e.g. Tiger, Lion, Predator, Anatomy of organism, Wildlife) -> MUST use "animal-biology".
-2. Cardiovascular or Heart topics (e.g. Human Heart, Blood Circulation, Ventricles) -> MUST use "human-heart".
-3. Astronomy or Planetary topics (e.g. Solar System, Orbits, Planets) -> MUST use "solar-system".
-4. Black holes or Relativity -> MUST use "black-hole".
-5. Atomic structure or Chemistry (e.g. Atom, Electrons, Molecules) -> MUST use "atom".
-6. Genetics or DNA -> MUST use "dna".
-7. Plant biology or Photosynthesis -> MUST use "photosynthesis".
-8. Circuits or Ohm's Law -> MUST use "electric-circuit".
-9. Waves or Oscillations -> MUST use "wave".
-10. Computer Science / Data Structures (ONLY if the topic specifically asks for linked lists or pointer structures) -> "linked-list".
-11. If no specialized 3D template matches the domain, use "interactive-diagram".
+1. Snake, serpent, or reptile biology (e.g. Snake, Cobra, Viper, Python, Rattlesnake, Serpent, Anaconda) -> MUST use "snake".
+2. Quadruped animal or Zoology topics (e.g. Tiger, Lion, Predator, Anatomy of mammal/organism, Wildlife) -> MUST use "animal-biology".
+3. Cardiovascular or Heart topics (e.g. Human Heart, Blood Circulation, Ventricles) -> MUST use "human-heart".
+4. Astronomy or Planetary topics (e.g. Solar System, Orbits, Planets) -> MUST use "solar-system".
+5. Black holes or Relativity -> MUST use "black-hole".
+6. Atomic structure or Chemistry (e.g. Atom, Electrons, Molecules) -> MUST use "atom".
+7. Genetics or DNA -> MUST use "dna".
+8. Plant biology or Photosynthesis -> MUST use "photosynthesis".
+9. Circuits or Ohm's Law -> MUST use "electric-circuit".
+10. Waves or Oscillations -> MUST use "wave".
+11. Computer Science / Data Structures (ONLY if the topic specifically asks for linked lists or pointer structures) -> "linked-list".
+12. FOR ALL OTHER TOPICS across ANY subject (e.g. Pythagoras Theorem, Water Cycle, Car Engine, Binary Search Tree, French Revolution, Supply & Demand, Volcanoes, Refrigerator, Camera, Quantum Physics, Chemical Bonds, etc.) -> YOU MUST USE "universal-3d" AND PROVIDE A RICH 3D SCENE SPECIFICATION in "visualization.scene" with objects, 3D geometries, positions, materials, connections, and animations!
 
 CRITICAL: NEVER select "linked-list" or generate C++ code for an unrelated topic such as an animal, anatomy, chemistry, or physics!
+CRITICAL: When using "universal-3d", generate 4-8 topic-specific 3D objects with appropriate geometries ("box", "sphere", "cylinder", "cone", "torus", "capsule", "plane", "arrow", "gear"), realistic 3D coordinates, and meaningful educational descriptions. DO NOT use generic names like "Primary Core Unit". Use actual domain components (e.g. for Car Engine: "Piston", "Cylinder Block", "Spark Plug", "Crankshaft", "Intake Valve")!
 
 You MUST return ONLY valid raw JSON matching this schema with NO Markdown backticks and NO introductory text:
 {
   "title": "Clear educational title",
-  "subject": "e.g. Biology, Zoology, Physics, Chemistry, Astronomy, Computer Science, Mathematics",
+  "subject": "e.g. Biology, Zoology, Physics, Chemistry, Astronomy, Computer Science, Mathematics, Mechanical Engineering, History, Economics",
   "difficulty": "${difficulty}",
   "language": "${language}",
   "learningObjectives": ["3-5 clear bullet points"],
@@ -73,10 +75,43 @@ You MUST return ONLY valid raw JSON matching this schema with NO Markdown backti
     }
   ],
   "visualization": {
-    "templateId": "one of the supported template IDs",
+    "templateId": "one of the supported template IDs (use 'universal-3d' for topics without a bespoke model)",
     "title": "Visualization title",
     "description": "What is shown in the visual scene",
     "parameters": {},
+    "scene": {
+      "category": "mechanical | biological | astronomical | chemical_molecular | geometric_math | physics_field | environmental_terrain | historical_spatial | economic_system | computer_science | conceptual_system",
+      "topic": "${topic}",
+      "metaphor": "Specific 3D physical or conceptual metaphor",
+      "cameraPreset": [0, 2.8, 7.5],
+      "environmentLighting": "studio",
+      "groundPlane": { "show": true, "type": "circular_shadow", "color": "#0f172a" },
+      "objects": [
+        {
+          "id": "component-id",
+          "name": "Specific Component Name",
+          "geometry": "box | sphere | cylinder | cone | torus | capsule | ring | plane | arrow | gear",
+          "position": [0, 0.5, 0],
+          "rotation": [0, 0, 0],
+          "dimensions": [1, 1, 1],
+          "color": "#38bdf8",
+          "label": "Visible 3D Label",
+          "description": "Component function and explanation in this topic",
+          "animation": { "type": "rotate | oscillate | pulse | orbit | float | piston", "axis": "y", "speed": 1 }
+        }
+      ],
+      "connections": [
+        {
+          "id": "conn-1",
+          "fromId": "component-id",
+          "toId": "component-id-2",
+          "type": "arrow | tube | particle_flow",
+          "label": "Interaction Flow",
+          "color": "#38bdf8",
+          "animatedFlow": true
+        }
+      ]
+    },
     "steps": [
       {
         "id": "step-1",
@@ -444,6 +479,18 @@ export function resolveSubjectAndVisualization(
     };
   }
 
+  // 2b. Snake / Serpent / Viper / Cobra / Python (Dedicated 3D Serpent Architecture)
+  const isSnake =
+    /\b(snakes?|serpents?|vipers?|cobras?|pythons?|rattlesnakes?|anacondas?|black mamba|boas?|mambas?|squamata)\b/i.test(q) ||
+    s.includes('herpetology') || (s.includes('snake') && !s.includes('game'));
+
+  if (isSnake) {
+    return {
+      templateId: 'snake',
+      subject: 'Zoology & Herpetology'
+    };
+  }
+
   // 3. Animal / Zoology / Predator / Wildlife (Tiger, Lion, Panthera, organism anatomy)
   const isAnimal =
     mentionsAnimalSpecies ||
@@ -544,22 +591,22 @@ export function resolveSubjectAndVisualization(
 
   // 12. Mathematics
   const isMath =
-    /\b(math|mathematics|derivatives?|calculus|functions?|geometry|algebra|coordinates?|integrals?)\b/i.test(q) ||
+    /\b(math|mathematics|derivatives?|calculus|functions?|geometry|algebra|coordinates?|integrals?|pythagor\w+|triangle|vectors?)\b/i.test(q) ||
     s.includes('mathematics');
   if (isMath) {
     return {
-      templateId: 'coordinate-geometry',
-      subject: 'Mathematics'
+      templateId: 'universal-3d',
+      subject: 'Mathematics & 3D Geometry'
     };
   }
 
-  // 13. Other Computer Science / Algorithms
+  // 13. Other Computer Science / Algorithms / Trees
   const isOtherCS =
-    /\b(sort|sorting|quicksort|mergesort|algorithms?|stacks?|queues?|trees?|binary search|databases?)\b/i.test(q) ||
+    /\b(binary search tree|bst|trees?|sort|sorting|quicksort|mergesort|algorithms?|stacks?|queues?|neural networks?|graphs?|databases?)\b/i.test(q) ||
     s.includes('computer science');
   if (isOtherCS) {
     return {
-      templateId: 'sorting-algorithm',
+      templateId: 'universal-3d',
       subject: 'Computer Science & Algorithms'
     };
   }
@@ -568,7 +615,7 @@ export function resolveSubjectAndVisualization(
   if (suggestedTemplate && SupportedTemplates.includes(suggestedTemplate as any)) {
     if (suggestedTemplate === 'linked-list' && !isExplicitCS) {
       return {
-        templateId: 'interactive-diagram',
+        templateId: 'universal-3d',
         subject: aiSubject || 'General Science & Technology'
       };
     }
@@ -578,9 +625,9 @@ export function resolveSubjectAndVisualization(
     };
   }
 
-  // 15. Default Fallback
+  // 15. Universal 3D Default for any other topic (Engineering, History, Economics, Geography, etc.)
   return {
-    templateId: 'interactive-diagram',
-    subject: aiSubject || 'General Science & Technology'
+    templateId: 'universal-3d',
+    subject: aiSubject || 'Universal Educational Concepts'
   };
 }

@@ -46,7 +46,8 @@ export const ViewerContainer: React.FC<Props> = ({
   const [showInspector, setShowInspector] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const entry = getVisualizationEntry(visualization.templateId);
+  const hasScene = Boolean(visualization.scene || visualization.parameters?.scene);
+  const entry = getVisualizationEntry(visualization.templateId, hasScene);
   const currentStep = visualization.steps[activeStepIndex] || visualization.steps[0];
   const ActiveComponent = entry.component;
 
@@ -138,7 +139,10 @@ export const ViewerContainer: React.FC<Props> = ({
         {entry.renderMode === '3d' ? (
           <Canvas
             key={cameraKey}
-            camera={{ position: entry.cameraPosition, fov: 45 }}
+            camera={{
+              position: visualization.scene?.cameraPreset || entry.cameraPosition,
+              fov: 45,
+            }}
             className="w-full h-full"
           >
             <ambientLight intensity={0.8} />
@@ -146,6 +150,8 @@ export const ViewerContainer: React.FC<Props> = ({
             <directionalLight position={[-10, -10, -5]} intensity={0.5} />
             <Suspense fallback={null}>
               <ActiveComponent
+                visualization={visualization}
+                activeStepIndex={activeStepIndex}
                 selectedComponentId={selectedComponentId}
                 onSelectComponent={onSelectComponent}
                 playbackSpeed={speed}

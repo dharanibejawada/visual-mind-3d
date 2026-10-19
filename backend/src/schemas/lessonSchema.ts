@@ -1,8 +1,10 @@
 import { z } from 'zod';
 
 export const SupportedTemplates = [
+  'universal-3d',
   'animal-biology',
   'animal',
+  'snake',
   'human-heart',
   'solar-system',
   'atom',
@@ -19,6 +21,86 @@ export const SupportedTemplates = [
 ] as const;
 
 export const DifficultySchema = z.enum(['beginner', 'intermediate', 'advanced']);
+
+export const SceneObjectAnimationSchema = z.object({
+  type: z.enum(['rotate', 'oscillate', 'pulse', 'orbit', 'float', 'flow', 'piston']).default('float'),
+  axis: z.enum(['x', 'y', 'z']).default('y'),
+  speed: z.number().default(1),
+  amplitude: z.number().optional(),
+  frequency: z.number().optional(),
+});
+
+export const SceneObjectSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  geometry: z.enum([
+    'box',
+    'sphere',
+    'cylinder',
+    'cone',
+    'torus',
+    'capsule',
+    'ring',
+    'plane',
+    'arrow',
+    'wedge',
+    'gear',
+    'tube',
+    'text',
+  ]).default('box'),
+  position: z.tuple([z.number(), z.number(), z.number()]).default([0, 0, 0]),
+  rotation: z.tuple([z.number(), z.number(), z.number()]).optional(),
+  scale: z.tuple([z.number(), z.number(), z.number()]).optional(),
+  dimensions: z.array(z.number()).optional(),
+  color: z.string().default('#38bdf8'),
+  emissive: z.string().optional(),
+  emissiveIntensity: z.number().optional(),
+  roughness: z.number().min(0).max(1).optional(),
+  metalness: z.number().min(0).max(1).optional(),
+  opacity: z.number().min(0).max(1).optional(),
+  wireframe: z.boolean().optional(),
+  label: z.string().optional(),
+  description: z.string().optional(),
+  animation: SceneObjectAnimationSchema.optional(),
+});
+
+export const SceneConnectionSchema = z.object({
+  id: z.string().min(1),
+  fromId: z.string().min(1),
+  toId: z.string().min(1),
+  type: z.enum(['arrow', 'tube', 'dashed_line', 'particle_flow', 'spring', 'bracket']).default('arrow'),
+  label: z.string().optional(),
+  color: z.string().default('#38bdf8'),
+  animatedFlow: z.boolean().default(true),
+});
+
+export const Universal3DSceneSchema = z.object({
+  category: z.enum([
+    'mechanical',
+    'biological',
+    'astronomical',
+    'chemical_molecular',
+    'geometric_math',
+    'physics_field',
+    'environmental_terrain',
+    'historical_spatial',
+    'economic_system',
+    'computer_science',
+    'conceptual_system',
+  ]).default('conceptual_system'),
+  topic: z.string().min(1),
+  metaphor: z.string().default(''),
+  cameraPreset: z.tuple([z.number(), z.number(), z.number()]).default([0, 2, 7]),
+  targetPreset: z.tuple([z.number(), z.number(), z.number()]).default([0, 0, 0]),
+  environmentLighting: z.enum(['studio', 'sunset', 'night', 'dawn', 'space', 'laboratory', 'outdoor']).default('studio'),
+  groundPlane: z.object({
+    show: z.boolean().default(true),
+    type: z.enum(['grid', 'terrain', 'circular_shadow', 'water', 'checkerboard']).default('circular_shadow'),
+    color: z.string().default('#0f172a'),
+  }).default({ show: true, type: 'circular_shadow', color: '#0f172a' }),
+  objects: z.array(SceneObjectSchema).min(1),
+  connections: z.array(SceneConnectionSchema).default([]),
+});
 
 export const VisualizationStepSchema = z.object({
   id: z.string().min(1),
@@ -41,6 +123,7 @@ export const VisualizationSpecSchema = z.object({
   title: z.string().min(1),
   description: z.string().min(1),
   parameters: z.record(z.any()).default({}),
+  scene: Universal3DSceneSchema.optional(),
   steps: z.array(VisualizationStepSchema).min(1),
   interactiveElements: z.array(InteractiveElementSchema).optional(),
 });

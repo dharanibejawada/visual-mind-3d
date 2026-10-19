@@ -10,6 +10,8 @@ import { LinkedListVisualization } from './LinkedListVisualization';
 import { WaveVisualization } from './WaveVisualization';
 import { InteractiveDiagramVisualization } from './InteractiveDiagramVisualization';
 import { AnimalVisualization } from './AnimalVisualization';
+import { SnakeVisualization } from './SnakeVisualization';
+import { Universal3DViewer } from './Universal3DViewer';
 
 export interface VisualizationRegistryEntry {
   id: string;
@@ -21,6 +23,46 @@ export interface VisualizationRegistryEntry {
 }
 
 export const VISUALIZATION_REGISTRY: Record<string, VisualizationRegistryEntry> = {
+  'snake': {
+    id: 'snake',
+    name: 'Serpent & Snake Anatomy 3D',
+    subject: 'Zoology & Herpetology',
+    renderMode: '3d',
+    cameraPosition: [0, 2.5, 6.5],
+    component: SnakeVisualization,
+  },
+  'serpent': {
+    id: 'serpent',
+    name: 'Serpent Anatomy 3D',
+    subject: 'Zoology & Herpetology',
+    renderMode: '3d',
+    cameraPosition: [0, 2.5, 6.5],
+    component: SnakeVisualization,
+  },
+  'cobra': {
+    id: 'cobra',
+    name: 'Cobra Biology 3D',
+    subject: 'Zoology & Herpetology',
+    renderMode: '3d',
+    cameraPosition: [0, 2.5, 6.5],
+    component: SnakeVisualization,
+  },
+  'viper': {
+    id: 'viper',
+    name: 'Viper Anatomy 3D',
+    subject: 'Zoology & Herpetology',
+    renderMode: '3d',
+    cameraPosition: [0, 2.5, 6.5],
+    component: SnakeVisualization,
+  },
+  'python': {
+    id: 'python',
+    name: 'Python Anatomy 3D',
+    subject: 'Zoology & Herpetology',
+    renderMode: '3d',
+    cameraPosition: [0, 2.5, 6.5],
+    component: SnakeVisualization,
+  },
   'animal-biology': {
     id: 'animal-biology',
     name: 'Panthera Tigris & Animal Biology 3D',
@@ -149,6 +191,14 @@ export const VISUALIZATION_REGISTRY: Record<string, VisualizationRegistryEntry> 
     cameraPosition: [0, 0, 6.5],
     component: WaveVisualization,
   },
+  'universal-3d': {
+    id: 'universal-3d',
+    name: 'Universal AI 3D Explorer',
+    subject: 'Universal Educational Concepts',
+    renderMode: '3d',
+    cameraPosition: [0, 2.8, 7.5],
+    component: Universal3DViewer,
+  },
   'interactive-diagram': {
     id: 'interactive-diagram',
     name: 'Interactive Conceptual Diagram',
@@ -159,9 +209,13 @@ export const VISUALIZATION_REGISTRY: Record<string, VisualizationRegistryEntry> 
   },
 };
 
-export function getVisualizationEntry(templateId: string): VisualizationRegistryEntry {
-  const match = VISUALIZATION_REGISTRY[templateId];
-  if (match) return match;
-  // Fallback to interactive diagram
-  return VISUALIZATION_REGISTRY['interactive-diagram'];
+export function getVisualizationEntry(templateId?: string, hasScene?: boolean): VisualizationRegistryEntry {
+  if (hasScene || templateId === 'universal-3d' || templateId === 'dynamic-3d') {
+    return VISUALIZATION_REGISTRY['universal-3d'];
+  }
+  if (templateId && VISUALIZATION_REGISTRY[templateId]) {
+    return VISUALIZATION_REGISTRY[templateId];
+  }
+  // Default fallback for any arbitrary topic: Universal 3D Explorer!
+  return VISUALIZATION_REGISTRY['universal-3d'];
 }
