@@ -16,7 +16,8 @@ async function runVerification() {
     { name: 'Car engine', expectedCategory: 'mechanical' },
     { name: 'French Revolution', expectedCategory: 'historical_spatial' },
     { name: 'Supply and demand', expectedCategory: 'economic_system' },
-    { name: 'Plate tectonics and volcanoes', expectedCategory: 'conceptual_system' }, // Arbitrary topic
+    { name: 'Butterfly insect', expectedCategory: 'biological' },
+    { name: 'Plate tectonics and volcanoes', expectedCategory: 'environmental_terrain' },
   ];
 
   let passedCount = 0;
@@ -44,7 +45,7 @@ async function runVerification() {
 
       // Verify 3D Scene or bespoke 3D visualization
       const hasScene = Boolean(lesson.visualization.scene && lesson.visualization.scene.objects.length > 0);
-      const isBespoke3D = ['human-heart', 'solar-system', 'dna', 'atom', 'black-hole', 'snake'].includes(lesson.visualization.templateId);
+      const isBespoke3D = ['human-heart', 'solar-system', 'dna', 'atom', 'black-hole', 'snake', 'butterfly'].includes(lesson.visualization.templateId);
 
       if (!hasScene && !isBespoke3D) {
         throw new Error(`FAIL: Neither Universal 3D scene nor bespoke 3D template generated!`);

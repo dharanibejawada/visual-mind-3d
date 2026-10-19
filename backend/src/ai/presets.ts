@@ -1402,11 +1402,164 @@ export const PRESET_LESSONS: Record<string, Lesson> = {
     sourceType: 'preset',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
+  },
+  'butterfly': {
+    id: 'preset-butterfly',
+    title: 'Butterfly Anatomy, Wing Scale Microstructure & Flight Biomechanics',
+    subject: 'Entomology & Evolutionary Biology',
+    difficulty: 'beginner',
+    language: 'English',
+    learningObjectives: [
+      'Analyze the tripartite insect anatomy: head with compound eyes, muscular thorax, and 10-segmented abdomen.',
+      'Understand microscopic scale coloration: melanin pigmentation vs structural photonic iridescence.',
+      'Trace the 4 stages of complete holometabolous metamorphosis: Egg, Larva (caterpillar), Pupa (chrysalis), and Adult (imago).',
+      'Examine flight mechanics: how synchronized flapping of forewings and hindwings creates leading-edge vortices.'
+    ],
+    summary: 'Butterflies (order Lepidoptera) are four-winged holometabolous insects renowned for their scaled membranous wings, coiled nectar proboscis, and complete developmental metamorphosis from leaf-chewing caterpillars into nectar-feeding aerial pollinators.',
+    sections: [
+      {
+        heading: '1. Tripartite Anatomy & Muscular Thoracic Engine',
+        explanation: 'Like all insects, the butterfly body is divided into three specialized tagmata: Head, Thorax, and Abdomen. The compact thorax consists of three fused segments (pro-, meso-, and metathorax) that house massive indirect flight muscles capable of oscillating the wings up to 20 times per second.',
+        keyPoints: [
+          'Dorsoventral muscles contract to elevate the wings; longitudinal muscles contract to depress them.',
+          'Six jointed walking legs attach to the thoracic sternum.',
+          'Flexible chitinous exoskeleton provides structural anchor for wing hinges.'
+        ],
+        example: 'Like an internal dual-piston engine alternating compressions to drive flapping aerofoils.',
+        visualizationStepIds: ['step-overview']
+      },
+      {
+        heading: '2. Wing Scale Microstructure & Structural Iridescence',
+        explanation: 'Butterfly wings are thin, double-layered chitinous membranes covered by thousands of microscopic overlapping shingle-like scales (~100 to 200 scales per square millimeter). While oranges and blacks derive from chemical melanin pigments, brilliant blues and emeralds (such as in Morpho butterflies) are produced by nanoscale Christmas-tree-like lamellae that create constructive optical interference of light waves.',
+        keyPoints: [
+          'Photonic nanostructures reflect specific wavelengths without any pigment fading over time.',
+          'Superhydrophobic micro-grooves shed raindrops and prevent flight impediment.',
+          'Forewings and hindwings overlap aerodynamically to act as a unified lifting surface.'
+        ],
+        example: 'Like microscopic optical prisms and mirrors engineered onto thin chitin tiles.',
+        visualizationStepIds: ['step-wings']
+      },
+      {
+        heading: '3. Sensory Systems, Coiled Proboscis & Metamorphosis',
+        explanation: 'The head carries a pair of hemispherical compound eyes with thousands of ommatidia sensitive to ultraviolet floral guides invisible to humans. Between the labial palps lies the coiled proboscis—a double-tubed suction straw uncoiled through hydrostatic hemolymph blood pressure to extract flower nectar. Butterflies develop via complete metamorphosis (holometabolism), dissolving larval tissue inside the pupa and rebuilding adult anatomy from clusters of embryonic cells called imaginal discs.',
+        keyPoints: [
+          'Clubbed antennae detect wind currents, floral scent bouquets, and pheromone plumes miles away.',
+          'Hydrostatic hydraulic pressure extends the proboscis; elastic recoil coils it back at rest.',
+          'Imaginal discs preserved within caterpillars differentiate into adult wings, legs, and antennae inside the chrysalis.'
+        ],
+        example: 'Like a self-recoiling party blower uncurling when air is blown in, powered by fluid pressure.',
+        visualizationStepIds: ['step-sensory']
+      }
+    ],
+    visualization: {
+      templateId: 'butterfly',
+      title: '3D Interactive Butterfly Anatomy & Aerodynamics',
+      description: 'Explore the 3D anatomical structures of a butterfly including compound eyes, clubbed antennae, coiled proboscis, segmented thorax and abdomen, and harmonic wing flapping.',
+      parameters: {
+        autoRotate: true,
+        showWingFlap: true
+      },
+      steps: [
+        {
+          id: 'step-overview',
+          title: 'Tripartite Insect Body Plan',
+          explanation: 'Observe the three distinct tagmata: head (sensory/feeding), thorax (flight muscles & walking legs), and abdomen (respiration & reproduction).',
+          highlightIds: ['head_eyes', 'thorax', 'abdomen'],
+          cameraPreset: 'front'
+        },
+        {
+          id: 'step-wings',
+          title: 'Forewings & Hindwings Aerodynamics',
+          explanation: 'Inspect the large dorsal forewings and smaller hindwings. Notice the synchronous flapping generating aerodynamic lift.',
+          highlightIds: ['forewing_left', 'forewing_right', 'hindwing_left', 'hindwing_right'],
+          cameraPreset: 'top'
+        },
+        {
+          id: 'step-sensory',
+          title: 'Sensory Head & Coiled Proboscis',
+          explanation: 'Examine the multi-faceted compound eyes, the clubbed chemosensory antennae, and the coiled proboscis used for sipping floral nectar.',
+          highlightIds: ['antennae', 'proboscis', 'head_eyes'],
+          cameraPreset: 'isometric'
+        }
+      ],
+      interactiveElements: [
+        { id: 'forewing_left', label: 'Left Forewing (Chitinous Scales)', description: 'Primary aerodynamic flight wing covered in thousands of microscopic overlapping shingle-like chitin scales.', color: '#ea580c' },
+        { id: 'forewing_right', label: 'Right Forewing (Chitinous Scales)', description: 'Primary aerodynamic flight wing generating leading-edge vortices during downward power stroke.', color: '#ea580c' },
+        { id: 'hindwing_left', label: 'Left Hindwing (Lift & Steering)', description: 'Secondary aerodynamic wing stabilizing flight trajectory and controlling aerial maneuverability.', color: '#f97316' },
+        { id: 'hindwing_right', label: 'Right Hindwing (Lift & Steering)', description: 'Secondary aerodynamic wing with scalloped outer margins and anal fold.', color: '#f97316' },
+        { id: 'thorax', label: 'Thorax (Flight Powerhouse)', description: 'Three fused segments (pro-, meso-, and metathorax) packed with powerful indirect flight muscles.', color: '#1e1b4b' },
+        { id: 'abdomen', label: 'Segmented Abdomen (Spiracles)', description: 'Ten-segment flexible tube housing the dorsal tubular heart, digestive tract, and lateral respiratory spiracles.', color: '#1e293b' },
+        { id: 'head_eyes', label: 'Compound Eyes (Ommatidia)', description: 'Hemispherical compound eyes composed of thousands of individual lenses capable of ultraviolet and polarized light vision.', color: '#78350f' },
+        { id: 'antennae', label: 'Clubbed Antennae (Chemosensors)', description: 'Paired sensory organs detecting floral nectar scents, pheromones, air pressure, and navigational magnetic orientation.', color: '#0284c7' },
+        { id: 'proboscis', label: 'Coiled Proboscis (Nectar Tube)', description: 'Long coiled sucking tube formed by two interlocking maxillae, uncoiled via hydrostatic blood pressure to sip nectar.', color: '#f97316' }
+      ]
+    },
+    keyTakeaways: [
+      'Butterflies belong to the order Lepidoptera, characterized by scale-covered membranous wings and holometabolous development.',
+      'Brilliant iridescent wing colors are created by microscopic photonic nanostructures that refract light waves without chemical fading.',
+      'The coiled proboscis operates by hydraulic blood pressure, allowing the insect to reach nectar in deep tubular floral blossoms.'
+    ],
+    quiz: [
+      {
+        question: 'What physical mechanism creates the brilliant iridescent blue colors in butterfly wings like the Morpho butterfly?',
+        options: [
+          'Microscopic structural scale architecture that refracts and interferes with light wavelengths (photonic crystals)',
+          'Liquid dye glands pumping blue pigments through wing veins',
+          'Reflections from swallowed blue flower petals',
+          'Chemical oxidation of copper in the exoskeleton'
+        ],
+        correctAnswerIndex: 0,
+        explanation: 'Structural coloration in Morpho wings results from microscopic Christmas-tree-like chitin lamellae that cause constructive wave interference, reflecting vivid blue wavelengths.'
+      },
+      {
+        question: 'How does an adult butterfly uncoil its spiral proboscis to drink nectar from deep flowers?',
+        options: [
+          'By pumping hydrostatic hemolymph fluid pressure into the cranial cavity',
+          'By pulling strong internal bicep muscles attached to the jaw',
+          'Using external wind friction against its antennae',
+          'By heating its mouthparts in direct sunlight'
+        ],
+        correctAnswerIndex: 0,
+        explanation: 'Hydrostatic pressure of hemolymph (insect blood) pumped into the proboscis canal forces the tightly coiled spiral to extend outward.'
+      }
+    ],
+    revision: {
+      keyDefinitions: [
+        { term: 'Lepidoptera', definition: 'The insect order comprising butterflies and moths, characterized by scales covering the membranous wings.' },
+        { term: 'Proboscis', definition: 'An elongated, coiled tubular sucking mouthpart formed by interlocking galeae specialized for liquid feeding.' },
+        { term: 'Imaginal Discs', definition: 'Clusters of embryonic cells preserved within the caterpillar that develop into adult butterfly organs during pupation.' },
+        { term: 'Holometabolism', definition: 'Complete four-stage metamorphosis consisting of egg, larva, pupa, and adult (imago).' }
+      ],
+      commonMistakes: [
+        'Believing butterfly wing colors are just ordinary liquid paint or pigments; many dazzling colors are physical nanostructural light interference.',
+        'Thinking a caterpillar spins a chrysalis; silk moths spin cocoons, whereas butterflies shed their larval skin to reveal a hardened chrysalis cuticle directly.'
+      ],
+      flashcards: [
+        { front: 'What are the three tagmata of an insect body?', back: 'Head (sensory/feeding), Thorax (locomotion), and Abdomen (respiration/digestion/reproduction).' },
+        { front: 'What is the function of clubbed antennae in butterflies?', back: 'Detecting floral scents, wind currents, sex pheromones, and solar navigation.' },
+        { front: 'How many stages occur in complete metamorphosis?', back: 'Four stages: Egg -> Larva (caterpillar) -> Pupa (chrysalis) -> Adult (imago).' }
+      ],
+      summaryPoints: [
+        'Tripartite body with muscular thorax powering synchronized wing flap cycles.',
+        'Microscopic shingle scales provide structural coloration, thermoregulation, and waterproofing.',
+        'Hydrostatic coiled proboscis sips nectar; compound eyes detect ultraviolet floral guides.',
+        'Complete holometabolous life cycle transforms chewing herbivore into aerial pollinator.'
+      ]
+    },
+    sourceType: 'preset',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   }
 };
 
 export function matchPresetByTopic(query: string, difficulty: Difficulty, language: string): Lesson | null {
   const q = query.toLowerCase();
+
+  // Butterfly / Lepidoptera / Moth / Caterpillar / Insect
+  if (/\b(butterfly|butterflies|moths?|caterpillars?|lepidoptera|chrysalis|insect|insects)\b/i.test(q)) {
+    const p = PRESET_LESSONS['butterfly'];
+    return { ...p, difficulty, language, id: uuidv4() };
+  }
 
   // Snake / Serpent / Viper / Cobra / Python / Rattlesnake
   if (
@@ -1513,6 +1666,18 @@ export function createDynamicLesson(
   const isMath = /\b(math|derivative|calculus|function|geometry|algebra|coordinate|integral)\b/i.test(q);
   const isLinkedList = /\b(linked[ -]?list|singly linked|doubly linked)\b/i.test(q) || (/\b(data structure|c\+\+|pointer)\b/i.test(q) && /\blist\b/i.test(q));
   const isSorting = /\b(sort|quicksort|mergesort|algorithm|stack|queue|tree|binary search)\b/i.test(q);
+  const isButterfly = /\b(butterfly|butterflies|moths?|caterpillars?|lepidoptera|chrysalis|insect|insects)\b/i.test(q);
+
+  if (isButterfly) {
+    const p = PRESET_LESSONS['butterfly'];
+    return {
+      ...p,
+      id: uuidv4(),
+      title: `${cleanTitle}: Butterfly Anatomy, Wing Aerodynamics & Metamorphosis`,
+      difficulty,
+      language
+    };
+  }
 
   if (isSnake) {
     const p = PRESET_LESSONS['snake'];
@@ -3205,10 +3370,466 @@ export function createDynamicLesson(
   }
 
   // 7. Universal Topic Dynamic 3D Lesson Generator
-  // Constructs an intelligent, topic-specific 3D scene and educational curriculum for ANY topic
+  // Constructs an intelligent, domain-aware 3D scene and educational curriculum for ANY topic
   const topicTerms = cleanTitle.split(/[^a-zA-Z0-9]+/).filter(Boolean);
   const primaryEntity = topicTerms[0] ? topicTerms[0].charAt(0).toUpperCase() + topicTerms[0].slice(1).toLowerCase() : 'Core';
   const secondaryEntity = topicTerms[1] ? topicTerms[1].charAt(0).toUpperCase() + topicTerms[1].slice(1).toLowerCase() : 'Structure';
+
+  // Semantic domain classification for realistic 3D spatial modeling
+  const isOrganism = /\b(butterfly|butterflies|insect|insects|bee|ant|spider|beetle|dragonfly|fly|moth|animal|creature|bird|eagle|falcon|fish|shark|whale|reptile|frog|amphibian|mammal|cheetah|wolf|bear|lion|tiger|panthera)\b/i.test(q);
+  const isAnatomy = !isOrganism && /\b(eye|ear|brain|lungs?|kidneys?|stomach|liver|tooth|teeth|bone|skeleton|muscle|skin|organ|cortex|tissue|tongue|throat|spine|skull)\b/i.test(q);
+  const isBotanical = /\b(flower|plant|tree|leaf|leaves|root|roots|seed|stem|petal|botany|flora|forest|branch|sprout|chloroplast)\b/i.test(q);
+  const isVehicleOrMachine = /\b(airplane|plane|car|automobile|rocket|spacecraft|train|ship|submarine|drone|robot|motor|engine|gear|camera|microscope|telescope|turbines?|bicycle)\b/i.test(q);
+  const isEarthOrCosmic = /\b(volcano|volcanoes|earthquake|tectonic|plate|mountain|glacier|planet|asteroid|comet|meteor|galaxy|nebula|star|crust|magma|geology)\b/i.test(q);
+
+  let sceneCategory: any = 'conceptual_system';
+  let groundType: any = 'grid';
+  let groundColor = '#0f172a';
+  let lightingPreset: any = 'studio';
+  let sceneObjects: any[] = [];
+  let sceneConnections: any[] = [];
+  let interactiveElems: any[] = [];
+
+  if (isOrganism) {
+    subject = subject === 'General Science & Technology' ? 'Zoology & Evolutionary Biology' : subject;
+    sceneCategory = 'biological';
+    groundType = 'terrain';
+    groundColor = '#1e293b';
+    lightingPreset = 'outdoor';
+
+    sceneObjects = [
+      {
+        id: 'obj-head',
+        name: `${primaryEntity} Sensory Head & Cephalon`,
+        description: `Cephalic capsule housing compound optical ommatidia and sensory antennae.`,
+        geometry: 'sphere',
+        position: [0, 1.4, 0.2],
+        scale: [0.75, 0.75, 0.75],
+        color: '#0284c7',
+        label: 'Sensory Head',
+        animation: { type: 'oscillate', speed: 1.5, axis: 'y', amplitude: 0.08 }
+      },
+      {
+        id: 'obj-thorax',
+        name: `${primaryEntity} Muscular Thorax (Flight/Locomotion Core)`,
+        description: `Central tagma packed with powerful indirect flight and walking musculature.`,
+        geometry: 'capsule',
+        position: [0, 0.4, 0],
+        scale: [0.8, 1.2, 0.8],
+        color: '#1e1b4b',
+        label: 'Muscular Thorax'
+      },
+      {
+        id: 'obj-wing-left',
+        name: `Left Aerodynamic Wing/Limb`,
+        description: `Primary aerodynamic lifting surface generating propulsion and steering.`,
+        geometry: 'box',
+        position: [-1.8, 0.8, 0],
+        rotation: [0, 0, 0.2],
+        scale: [2.2, 1.4, 0.08],
+        color: '#ea580c',
+        label: 'Left Wing / Limb',
+        animation: { type: 'oscillate', speed: 3.5, axis: 'z', amplitude: 0.3 }
+      },
+      {
+        id: 'obj-wing-right',
+        name: `Right Aerodynamic Wing/Limb`,
+        description: `Symmetrical lifting surface providing aerofoil balance and thrust.`,
+        geometry: 'box',
+        position: [1.8, 0.8, 0],
+        rotation: [0, 0, -0.2],
+        scale: [2.2, 1.4, 0.08],
+        color: '#ea580c',
+        label: 'Right Wing / Limb',
+        animation: { type: 'oscillate', speed: 3.5, axis: 'z', amplitude: -0.3 }
+      },
+      {
+        id: 'obj-abdomen',
+        name: `Segmented Abdomen & Posterior`,
+        description: `Multi-segmented flexible tube housing digestive tract and respiratory spiracles.`,
+        geometry: 'capsule',
+        position: [0, -1.0, 0],
+        scale: [0.6, 1.4, 0.6],
+        color: '#334155',
+        label: 'Segmented Abdomen'
+      }
+    ];
+
+    sceneConnections = [
+      { id: 'conn-head-thorax', fromId: 'obj-head', toId: 'obj-thorax', type: 'tube', label: 'Cervical Suture', color: '#0284c7', animatedFlow: false },
+      { id: 'conn-thorax-wl', fromId: 'obj-thorax', toId: 'obj-wing-left', type: 'tube', label: 'Wing Hinge', color: '#ea580c', animatedFlow: true },
+      { id: 'conn-thorax-wr', fromId: 'obj-thorax', toId: 'obj-wing-right', type: 'tube', label: 'Wing Hinge', color: '#ea580c', animatedFlow: true },
+      { id: 'conn-thorax-ab', fromId: 'obj-thorax', toId: 'obj-abdomen', type: 'tube', label: 'Petiole Joint', color: '#334155', animatedFlow: false }
+    ];
+
+    interactiveElems = [
+      { id: 'obj-head', label: 'Sensory Head (Compound Eyes)', description: `Cranial capsule supporting sensory antennae and compound vision in ${cleanTitle}.`, color: '#0284c7' },
+      { id: 'obj-thorax', label: 'Muscular Thorax', description: `Skeletal engine housing high-output striated flight muscles.`, color: '#1e1b4b' },
+      { id: 'obj-wing-left', label: 'Left Aerodynamic Wing', description: `Chitinous aerofoil generating thrust and vortex lift during flight.`, color: '#ea580c' },
+      { id: 'obj-wing-right', label: 'Right Aerodynamic Wing', description: `Chitinous aerofoil providing symmetrical aerial stability.`, color: '#ea580c' },
+      { id: 'obj-abdomen', label: 'Segmented Abdomen', description: `Ten-segment flexible tube housing respiration and metabolic digestion.`, color: '#334155' }
+    ];
+  } else if (isAnatomy) {
+    subject = subject === 'General Science & Technology' ? 'Human Anatomy & Physiology' : subject;
+    sceneCategory = 'biological';
+    groundType = 'circular_shadow';
+    groundColor = '#1f1315';
+    lightingPreset = 'laboratory';
+
+    sceneObjects = [
+      {
+        id: 'obj-cortex',
+        name: `${cleanTitle} Functional Cortex / Parenchyma`,
+        description: `Primary cellular tissue performing specialized physiological transformations.`,
+        geometry: 'sphere',
+        position: [0, 0.3, 0],
+        scale: [1.6, 1.4, 1.4],
+        color: '#ef4444',
+        label: 'Functional Parenchyma',
+        animation: { type: 'pulse', speed: 1.2, amplitude: 0.08 }
+      },
+      {
+        id: 'obj-vessels',
+        name: `Arterial Vascular Influx`,
+        description: `High-pressure oxygenated vascular conduit nourishing active tissues.`,
+        geometry: 'cylinder',
+        position: [-1.4, 0, 0],
+        scale: [0.25, 2.4, 0.25],
+        color: '#dc2626',
+        label: 'Arterial Supply',
+        animation: { type: 'pulse', speed: 2.0, amplitude: 0.1 }
+      },
+      {
+        id: 'obj-membrane',
+        name: `Protective Fascia & Capsule`,
+        description: `Dense connective tissue sheath providing mechanical defense and structural integrity.`,
+        geometry: 'torus',
+        position: [0, 0.3, 0],
+        scale: [2.0, 2.0, 0.2],
+        color: '#fda4af',
+        label: 'Protective Capsule'
+      },
+      {
+        id: 'obj-drainage',
+        name: `Venous Return & Drainage`,
+        description: `Low-pressure deoxygenated return conduit filtering metabolic byproducts.`,
+        geometry: 'cylinder',
+        position: [1.4, 0, 0],
+        scale: [0.25, 2.4, 0.25],
+        color: '#2563eb',
+        label: 'Venous Drainage'
+      }
+    ];
+
+    sceneConnections = [
+      { id: 'conn-art-cor', fromId: 'obj-vessels', toId: 'obj-cortex', type: 'arrow', label: 'Oxygen Influx', color: '#dc2626', animatedFlow: true },
+      { id: 'conn-cor-ven', fromId: 'obj-cortex', toId: 'obj-drainage', type: 'arrow', label: 'Venous Outflow', color: '#2563eb', animatedFlow: true }
+    ];
+
+    interactiveElems = [
+      { id: 'obj-cortex', label: `${cleanTitle} Active Cortex`, description: `Core cellular tissue matrix of ${cleanTitle}.`, color: '#ef4444' },
+      { id: 'obj-vessels', label: 'Arterial Blood Supply', description: 'Oxygen and nutrient delivery pathway.', color: '#dc2626' },
+      { id: 'obj-membrane', label: 'Capsular Boundary', description: 'Fibrous sheath insulating internal parenchyma.', color: '#fda4af' },
+      { id: 'obj-drainage', label: 'Venous Drainage Return', description: 'Systemic filtration and return circulation.', color: '#2563eb' }
+    ];
+  } else if (isBotanical) {
+    subject = subject === 'General Science & Technology' ? 'Botany & Plant Science' : subject;
+    sceneCategory = 'biological';
+    groundType = 'terrain';
+    groundColor = '#14532d';
+    lightingPreset = 'outdoor';
+
+    sceneObjects = [
+      {
+        id: 'obj-corolla',
+        name: `Floral Corolla & Petals`,
+        description: `Vibrant petal array attracting insect pollinators and shielding reproductive organs.`,
+        geometry: 'cone',
+        position: [0, 1.4, 0],
+        rotation: [Math.PI, 0, 0],
+        scale: [2.2, 1.0, 2.2],
+        color: '#ec4899',
+        label: 'Petals / Corolla',
+        animation: { type: 'pulse', speed: 1.2, amplitude: 0.08 }
+      },
+      {
+        id: 'obj-receptacle',
+        name: `Central Stigma & Nectary`,
+        description: `Fertilization hub containing receptive floral stigma and nectar-producing gland.`,
+        geometry: 'sphere',
+        position: [0, 1.2, 0],
+        scale: [0.6, 0.6, 0.6],
+        color: '#eab308',
+        label: 'Nectary Hub'
+      },
+      {
+        id: 'obj-stem',
+        name: `Vascular Stem (Xylem & Phloem)`,
+        description: `Rigid cellulose conduit conducting water, mineral ions, and sucrose sap.`,
+        geometry: 'cylinder',
+        position: [0, -0.2, 0],
+        scale: [0.25, 2.2, 0.25],
+        color: '#16a34a',
+        label: 'Vascular Stem'
+      },
+      {
+        id: 'obj-leaf',
+        name: `Photosynthetic Lamina (Leaf)`,
+        description: `Solar harvesting organ utilizing chlorophyll to convert CO₂ into carbohydrates.`,
+        geometry: 'box',
+        position: [1.0, -0.1, 0],
+        rotation: [0, 0, -0.4],
+        scale: [1.4, 0.1, 0.8],
+        color: '#22c55e',
+        label: 'Photosynthetic Leaf'
+      },
+      {
+        id: 'obj-root',
+        name: `Subterranean Root System`,
+        description: `High-surface-area root network absorbing subterranean water and nutrients.`,
+        geometry: 'box',
+        position: [0, -1.8, 0],
+        scale: [2.8, 0.4, 2.8],
+        color: '#78350f',
+        label: 'Root System'
+      }
+    ];
+
+    sceneConnections = [
+      { id: 'conn-root-stem', fromId: 'obj-root', toId: 'obj-stem', type: 'arrow', label: 'Water Uptake', color: '#22c55e', animatedFlow: true },
+      { id: 'conn-stem-leaf', fromId: 'obj-stem', toId: 'obj-leaf', type: 'tube', label: 'Xylem Flux', color: '#16a34a', animatedFlow: true },
+      { id: 'conn-stem-flower', fromId: 'obj-stem', toId: 'obj-corolla', type: 'arrow', label: 'Nutrient Delivery', color: '#ec4899', animatedFlow: true }
+    ];
+
+    interactiveElems = [
+      { id: 'obj-corolla', label: 'Floral Petals (Corolla)', description: 'Coloration and scent adaptation attracting pollinating fauna.', color: '#ec4899' },
+      { id: 'obj-receptacle', label: 'Stigma & Nectary Core', description: 'Center of fertilization and pollen reception.', color: '#eab308' },
+      { id: 'obj-stem', label: 'Vascular Stem Conduit', description: 'Cellulose column transporting xylem and phloem fluids.', color: '#16a34a' },
+      { id: 'obj-leaf', label: 'Photosynthetic Leaf', description: 'Solar chloroplast array generating glucose.', color: '#22c55e' },
+      { id: 'obj-root', label: 'Root Matrix', description: 'Underground mycorrhizal absorption network.', color: '#78350f' }
+    ];
+  } else if (isVehicleOrMachine) {
+    subject = subject === 'General Science & Technology' ? 'Mechanical & Aerospace Engineering' : subject;
+    sceneCategory = 'mechanical';
+    groundType = 'grid';
+    groundColor = '#0f172a';
+    lightingPreset = 'laboratory';
+
+    sceneObjects = [
+      {
+        id: 'obj-fuselage',
+        name: `${cleanTitle} Central Body / Fuselage`,
+        description: `Aerodynamic structural fuselage supporting payload, avionics, and flight envelope.`,
+        geometry: 'capsule',
+        position: [0, 0.2, 0],
+        rotation: [Math.PI / 2, 0, 0],
+        scale: [0.8, 3.2, 0.8],
+        color: '#38bdf8',
+        label: 'Main Fuselage'
+      },
+      {
+        id: 'obj-wing-left',
+        name: `Port Aerofoil Wing`,
+        description: `Cambered lifting wing generating pressure differential and aerodynamic lift.`,
+        geometry: 'box',
+        position: [-2.0, 0.2, 0],
+        scale: [2.6, 0.1, 1.0],
+        color: '#0284c7',
+        label: 'Port Aerofoil'
+      },
+      {
+        id: 'obj-wing-right',
+        name: `Starboard Aerofoil Wing`,
+        description: `Symmetrical cambered wing providing lateral roll control and lift.`,
+        geometry: 'box',
+        position: [2.0, 0.2, 0],
+        scale: [2.6, 0.1, 1.0],
+        color: '#0284c7',
+        label: 'Starboard Aerofoil'
+      },
+      {
+        id: 'obj-power',
+        name: `Propulsion Engine / Power Unit`,
+        description: `Turbine combustion or electric actuator delivering axial forward thrust.`,
+        geometry: 'cylinder',
+        position: [0, 0.2, -1.6],
+        rotation: [Math.PI / 2, 0, 0],
+        scale: [0.5, 1.0, 0.5],
+        color: '#f59e0b',
+        label: 'Power Unit / Thruster',
+        animation: { type: 'rotate', speed: 4.0, axis: 'z' }
+      },
+      {
+        id: 'obj-tail',
+        name: `Vertical Stabilizer & Rudder`,
+        description: `Aerodynamic tail fin maintaining yaw stability and heading control.`,
+        geometry: 'cone',
+        position: [0, 1.0, -1.4],
+        scale: [0.2, 1.2, 0.8],
+        color: '#6366f1',
+        label: 'Vertical Stabilizer'
+      }
+    ];
+
+    sceneConnections = [
+      { id: 'conn-fuse-wl', fromId: 'obj-fuselage', toId: 'obj-wing-left', type: 'tube', label: 'Wing Spar', color: '#0284c7', animatedFlow: true },
+      { id: 'conn-fuse-wr', fromId: 'obj-fuselage', toId: 'obj-wing-right', type: 'tube', label: 'Wing Spar', color: '#0284c7', animatedFlow: true },
+      { id: 'conn-power-fuse', fromId: 'obj-power', toId: 'obj-fuselage', type: 'arrow', label: 'Axial Thrust', color: '#f59e0b', animatedFlow: true }
+    ];
+
+    interactiveElems = [
+      { id: 'obj-fuselage', label: `${cleanTitle} Central Body`, description: 'Primary monocoque airframe or chassis structural shell.', color: '#38bdf8' },
+      { id: 'obj-wing-left', label: 'Port Aerofoil Wing', description: 'High-lift cambered surface providing aerodynamic flight.', color: '#0284c7' },
+      { id: 'obj-wing-right', label: 'Starboard Aerofoil Wing', description: 'Counter-balanced flight control wing.', color: '#0284c7' },
+      { id: 'obj-power', label: 'Thrust Engine / Actuator', description: 'High-energy motor generating forward momentum.', color: '#f59e0b' },
+      { id: 'obj-tail', label: 'Vertical Empennage', description: 'Directional rudder stabilizing vehicle trajectory.', color: '#6366f1' }
+    ];
+  } else if (isEarthOrCosmic) {
+    subject = subject === 'General Science & Technology' ? 'Earth & Planetary Science' : subject;
+    sceneCategory = 'environmental_terrain';
+    groundType = 'terrain';
+    groundColor = '#334155';
+    lightingPreset = 'space';
+
+    sceneObjects = [
+      {
+        id: 'obj-core',
+        name: `Deep Magma Chamber / Core`,
+        description: `Subterranean high-pressure thermal reservoir accumulating magma or planetary density.`,
+        geometry: 'sphere',
+        position: [0, -0.6, 0],
+        scale: [1.4, 1.4, 1.4],
+        color: '#dc2626',
+        label: 'Magma Chamber / Core',
+        animation: { type: 'pulse', speed: 1.8, amplitude: 0.12 }
+      },
+      {
+        id: 'obj-cone',
+        name: `Volcanic Stratum / Crustal Edifice`,
+        description: `Layered basaltic and andesitic strata formed by recurring tectonic eruptions.`,
+        geometry: 'cone',
+        position: [0, 0.4, 0],
+        scale: [2.8, 2.2, 2.8],
+        color: '#78350f',
+        label: 'Crustal Edifice'
+      },
+      {
+        id: 'obj-crater',
+        name: `Summit Caldera / Crater Rim`,
+        description: `Circular depression formed by magma withdrawal and explosive gaseous venting.`,
+        geometry: 'torus',
+        position: [0, 1.5, 0],
+        rotation: [Math.PI / 2, 0, 0],
+        scale: [1.0, 1.0, 0.2],
+        color: '#f97316',
+        label: 'Caldera Rim'
+      },
+      {
+        id: 'obj-plume',
+        name: `Eruptive Ash & Gas Column`,
+        description: `Thermal convective column injecting pyroclastic ash into the stratosphere.`,
+        geometry: 'cylinder',
+        position: [0, 2.6, 0],
+        scale: [0.6, 1.8, 0.6],
+        color: '#94a3b8',
+        opacity: 0.8,
+        label: 'Eruption Plume',
+        animation: { type: 'piston', speed: 2.0, axis: 'y', amplitude: 0.25 }
+      }
+    ];
+
+    sceneConnections = [
+      { id: 'conn-core-cone', fromId: 'obj-core', toId: 'obj-cone', type: 'tube', label: 'Magma Conduit', color: '#dc2626', animatedFlow: true },
+      { id: 'conn-crater-plume', fromId: 'obj-crater', toId: 'obj-plume', type: 'arrow', label: 'Pyroclastic Vent', color: '#f97316', animatedFlow: true }
+    ];
+
+    interactiveElems = [
+      { id: 'obj-core', label: 'Magmatic Reservoir', description: 'Thermal molten reservoir under extreme lithostatic pressure.', color: '#dc2626' },
+      { id: 'obj-cone', label: 'Volcanic Edifice', description: 'Solidified conical structure of ash and lava layers.', color: '#78350f' },
+      { id: 'obj-crater', label: 'Caldera Basin', description: 'Volcanic vent where magma reaches planetary atmosphere.', color: '#f97316' },
+      { id: 'obj-plume', label: 'Atmospheric Plume', description: 'Superheated volcanic gases ascending into upper air currents.', color: '#94a3b8' }
+    ];
+  } else {
+    // Conceptual / Mathematical / Economic System
+    sceneCategory = 'conceptual_system';
+    groundType = 'grid';
+    groundColor = '#0f172a';
+    lightingPreset = 'studio';
+
+    sceneObjects = [
+      {
+        id: 'obj-core',
+        name: `${primaryEntity} Core Coordinating Hub`,
+        description: `Central hub governing the foundational properties and operational equilibrium of ${cleanTitle}.`,
+        geometry: 'sphere',
+        position: [0, 0.4, 0],
+        scale: [1.2, 1.2, 1.2],
+        color: '#06b6d4',
+        label: `${primaryEntity} Hub`,
+        animation: { type: 'pulse', speed: 1.5, amplitude: 0.1 }
+      },
+      {
+        id: 'obj-structural-base',
+        name: `${secondaryEntity} Support Platform`,
+        description: `Structural platform stabilizing the coordinate baseline in 3D space.`,
+        geometry: 'cylinder',
+        position: [0, -1.8, 0],
+        scale: [2.6, 0.4, 2.6],
+        color: '#4f46e5',
+        label: `${secondaryEntity} Base`
+      },
+      {
+        id: 'obj-dynamic-node',
+        name: `Active Processing Node`,
+        description: `Specialized component executing operational transformations in ${cleanTitle}.`,
+        geometry: 'box',
+        position: [2.2, 0.5, 0],
+        rotation: [0, Math.PI / 4, 0],
+        scale: [0.8, 0.8, 0.8],
+        color: '#10b981',
+        label: 'Active Node',
+        animation: { type: 'float', speed: 1.8, amplitude: 0.15 }
+      },
+      {
+        id: 'obj-channel',
+        name: `Flux Transmission Channel`,
+        description: `Directional conduit linking core processes to output endpoints.`,
+        geometry: 'capsule',
+        position: [-2.0, 0.5, 0],
+        rotation: [0, 0, Math.PI / 6],
+        scale: [0.35, 1.4, 0.35],
+        color: '#f59e0b',
+        label: 'Flux Conduit',
+        animation: { type: 'oscillate', speed: 2.2, axis: 'y', amplitude: 0.18 }
+      },
+      {
+        id: 'obj-boundary',
+        name: `Equilibrium Field Boundary`,
+        description: `Orbital boundary demonstrating the field of influence of ${cleanTitle}.`,
+        geometry: 'torus',
+        position: [0, 0.4, 0],
+        rotation: [Math.PI / 3, 0, 0],
+        scale: [2.2, 2.2, 0.15],
+        color: '#ec4899',
+        label: 'Boundary Field',
+        animation: { type: 'rotate', speed: 1.0, axis: 'z' }
+      }
+    ];
+
+    sceneConnections = [
+      { id: 'conn-core-node', fromId: 'obj-core', toId: 'obj-dynamic-node', type: 'tube', label: 'Active Link', color: '#10b981', animatedFlow: true },
+      { id: 'conn-channel-core', fromId: 'obj-channel', toId: 'obj-core', type: 'arrow', label: 'Input Flow', color: '#f59e0b', animatedFlow: true },
+      { id: 'conn-base-core', fromId: 'obj-structural-base', toId: 'obj-core', type: 'dashed_line', label: 'Structural Support', color: '#6366f1', animatedFlow: false }
+    ];
+
+    interactiveElems = [
+      { id: 'obj-core', label: `${primaryEntity} Core Unit`, description: `The primary hub and coordinating focus of ${cleanTitle}.`, color: '#06b6d4' },
+      { id: 'obj-structural-base', label: `${secondaryEntity} Support Base`, description: `The foundational structural platform stabilizing the system.`, color: '#6366f1' },
+      { id: 'obj-dynamic-node', label: `Active Functional Node`, description: `Specialized component executing operational transformations in ${cleanTitle}.`, color: '#10b981' },
+      { id: 'obj-channel', label: 'Conduction Channel', description: 'Directional pathway facilitating energetic, informational, or fluid flux.', color: '#f59e0b' },
+      { id: 'obj-boundary', label: 'Equilibrium Field Boundary', description: 'Surrounding interface defining the spatial limits and interaction threshold.', color: '#ec4899' }
+    ];
+  }
 
   return {
     id: uuidv4(),
@@ -3218,8 +3839,8 @@ export function createDynamicLesson(
     language,
     learningObjectives: [
       `Analyze the foundational principles and structural organization of ${cleanTitle}.`,
-      `Identify the essential components, forces, or variables that govern ${cleanTitle}.`,
-      `Understand how energy, data, or state changes propagate across ${cleanTitle}.`,
+      `Identify the essential components, forces, or biological/physical adaptations that govern ${cleanTitle}.`,
+      `Understand how energy, force, or biological processes propagate across ${cleanTitle}.`,
       `Verify conceptual comprehension using the interactive 3D spatial model and revision quizzes.`
     ],
     summary: notesSnippet 
@@ -3227,38 +3848,38 @@ export function createDynamicLesson(
       : `${cleanTitle} is a critical topic in ${subject}. This lesson breaks down its structural components, operational dynamics, and practical significance through an interactive 3D visual model.`,
     sections: [
       {
-        heading: `1. Foundations and Core Architecture of ${cleanTitle}`,
+        heading: `1. Foundations and Morphological Architecture of ${cleanTitle}`,
         explanation: notesSnippet 
           ? `Based on your notes: ${notesSnippet.slice(0, 300)}...`
-          : `${cleanTitle} operates on fundamental principles within ${subject}. Its functional behavior is governed by the structural arrangement of its core components and their mutual equilibrium.`,
+          : `${cleanTitle} operates on fundamental structural and functional principles within ${subject}. Its behavior is governed by the coordinated arrangement of its core components and their mutual balance.`,
         keyPoints: [
-          `Primary scope, physical or conceptual boundaries, and definitions within ${subject}.`,
-          `Essential governing laws, mathematical relations, or operational constraints.`,
-          `Role of the central coordinating element (${primaryEntity}) in maintaining stability.`
+          `Primary scope, physical morphology, and structural definitions within ${subject}.`,
+          `Essential governing laws, biological adaptations, or operational constraints.`,
+          `Role of coordinating structures (${primaryEntity}) in maintaining stability and survival.`
         ],
-        example: `Analyzing ${cleanTitle} by observing how ${primaryEntity} coordinates the surrounding elements.`,
+        example: `Analyzing ${cleanTitle} by observing how its anatomical or mechanical elements coordinate together.`,
         visualizationStepIds: ['step-intro']
       },
       {
-        heading: '2. Dynamic Interaction and Process Flow',
-        explanation: `When active, ${cleanTitle} undergoes coordinated state changes where inputs are processed and transmitted through intermediary channels to generate stable outputs.`,
+        heading: '2. Dynamic Interaction and Operational Flow',
+        explanation: `When active, ${cleanTitle} undergoes coordinated state changes where inputs are processed and transmitted through specialized pathways to generate stable function.`,
         keyPoints: [
-          'Sequential execution of operational stages or thermodynamic/logical phases.',
-          'Feedback loops and conserved physical, spatial, or informational quantities.',
-          'Response to external perturbations or boundary condition shifts.'
+          'Sequential execution of operational stages, biological cycles, or logical phases.',
+          'Feedback loops and conserved physical, spatial, or biochemical properties.',
+          'Response to external perturbations, sensory cues, or environmental shifts.'
         ],
-        example: `Traces of energy, force, or data moving continuously between ${primaryEntity} and supporting structures.`,
+        example: `Traces of energy, force, or movement passing continuously through ${cleanTitle}.`,
         visualizationStepIds: ['step-mechanism']
       },
       {
         heading: '3. Real-World Applications and System Analysis',
-        explanation: `Mastery of ${cleanTitle} provides critical diagnostic, analytical, and design capabilities across academic and professional applications in ${subject}.`,
+        explanation: `Mastery of ${cleanTitle} provides critical diagnostic, analytical, and design capabilities across academic and practical applications in ${subject}.`,
         keyPoints: [
-          'Modern practical implementations and engineering or scientific significance.',
-          'Standard diagnostic methods for detecting failure modes or edge cases.',
-          'Technological, environmental, or theoretical advancements stemming from this concept.'
+          'Modern practical implementations, evolutionary significance, or engineering impact.',
+          'Key diagnostic methods for detecting operational anomalies or failure modes.',
+          'Technological, environmental, or medical advancements stemming from this concept.'
         ],
-        example: `Real-world systems relying directly on the stability and optimization of ${cleanTitle}.`,
+        example: `Real-world systems relying directly on the optimization and balance of ${cleanTitle}.`,
         visualizationStepIds: ['step-advanced']
       }
     ],
@@ -3274,104 +3895,36 @@ export function createDynamicLesson(
         {
           id: 'step-intro',
           title: `Spatial Composition of ${cleanTitle}`,
-          explanation: `Inspect the central ${primaryEntity} and primary structural anchors of ${cleanTitle}.`,
-          highlightIds: ['obj-core', 'obj-structural-base'],
+          explanation: `Inspect the central structural elements and primary anatomical anchors of ${cleanTitle}.`,
+          highlightIds: [sceneObjects[0]?.id || 'obj-core', sceneObjects[1]?.id || 'obj-structural-base'],
           cameraPreset: 'front'
         },
         {
           id: 'step-mechanism',
           title: 'Interaction & Dynamic Flow',
-          explanation: `Observe the dynamic transfer channels connecting the core unit to supporting components.`,
-          highlightIds: ['obj-channel', 'obj-dynamic-node'],
+          explanation: `Observe the dynamic interaction pathways connecting functional units.`,
+          highlightIds: [sceneObjects[2]?.id || 'obj-channel', sceneObjects[3]?.id || 'obj-dynamic-node'],
           cameraPreset: 'isometric'
         },
         {
           id: 'step-advanced',
-          title: 'System Equilibrium & Boundary',
+          title: 'System Boundary & Environment',
           explanation: `Rotate and zoom to analyze the complete system boundary and surrounding environmental interface.`,
-          highlightIds: ['obj-boundary', 'obj-core'],
+          highlightIds: [sceneObjects[4]?.id || 'obj-boundary', sceneObjects[0]?.id || 'obj-core'],
           cameraPreset: 'top'
         }
       ],
-      interactiveElements: [
-        { id: 'obj-core', label: `${primaryEntity} Core Unit`, description: `The primary hub and coordinating focus of ${cleanTitle}.`, color: '#06b6d4' },
-        { id: 'obj-structural-base', label: `${secondaryEntity} Support Base`, description: `The foundational structural platform stabilizing the system.`, color: '#6366f1' },
-        { id: 'obj-dynamic-node', label: `Active Functional Node`, description: `Specialized component executing operational transformations in ${cleanTitle}.`, color: '#10b981' },
-        { id: 'obj-channel', label: 'Conduction Channel', description: 'Directional pathway facilitating energetic, informational, or fluid flux.', color: '#f59e0b' },
-        { id: 'obj-boundary', label: 'Equilibrium Field Boundary', description: 'Surrounding interface defining the spatial limits and interaction threshold.', color: '#ec4899' }
-      ],
+      interactiveElements: interactiveElems,
       scene: {
-        category: 'conceptual_system',
+        category: sceneCategory,
         topic: cleanTitle,
-        metaphor: `Dynamic coordinated 3D system of ${cleanTitle}`,
+        metaphor: `Dynamic 3D spatial representation of ${cleanTitle}`,
         cameraPreset: [0, 2, 8],
         targetPreset: [0, 0, 0],
-        environmentLighting: 'studio',
-        groundPlane: { show: true, type: 'grid', color: '#0f172a' },
-        objects: [
-          {
-            id: 'obj-core',
-            name: `${primaryEntity} Core Hub`,
-            description: `Central hub governing the properties and operation of ${cleanTitle}.`,
-            geometry: 'sphere',
-            position: [0, 0.4, 0],
-            scale: [1.2, 1.2, 1.2],
-            color: '#06b6d4',
-            label: `${primaryEntity} Core`,
-            animation: { type: 'pulse', speed: 1.5, amplitude: 0.1 }
-          },
-          {
-            id: 'obj-structural-base',
-            name: `${secondaryEntity} Foundation Platform`,
-            description: `Structural base anchoring ${cleanTitle} in Euclidean 3D space.`,
-            geometry: 'cylinder',
-            position: [0, -1.8, 0],
-            scale: [2.6, 0.4, 2.6],
-            color: '#4f46e5',
-            label: `${secondaryEntity} Base`
-          },
-          {
-            id: 'obj-dynamic-node',
-            name: `Active Processing Node`,
-            description: `Intermediary unit executing dynamic state changes.`,
-            geometry: 'box',
-            position: [2.2, 0.5, 0],
-            rotation: [0, Math.PI / 4, 0],
-            scale: [0.8, 0.8, 0.8],
-            color: '#10b981',
-            label: 'Active Node',
-            animation: { type: 'float', speed: 1.8, amplitude: 0.15 }
-          },
-          {
-            id: 'obj-channel',
-            name: `Flux Transmission Channel`,
-            description: `Directional conduit linking core processes to output endpoints.`,
-            geometry: 'capsule',
-            position: [-2.0, 0.5, 0],
-            rotation: [0, 0, Math.PI / 6],
-            scale: [0.35, 1.4, 0.35],
-            color: '#f59e0b',
-            label: 'Flux Conduit',
-            animation: { type: 'oscillate', speed: 2.2, axis: 'y', amplitude: 0.18 }
-          },
-          {
-            id: 'obj-boundary',
-            name: `Equilibrium Field Ring`,
-            description: `Orbital boundary demonstrating the field of influence of ${cleanTitle}.`,
-            geometry: 'torus',
-            position: [0, 0.4, 0],
-            rotation: [Math.PI / 3, 0, 0],
-            scale: [2.2, 2.2, 0.15],
-            color: '#ec4899',
-            label: 'Boundary Field',
-            animation: { type: 'rotate', speed: 1.0, axis: 'z' }
-          }
-        ],
-        connections: [
-          { id: 'conn-core-node', fromId: 'obj-core', toId: 'obj-dynamic-node', type: 'tube', label: 'Active Link', color: '#10b981', animatedFlow: true },
-          { id: 'conn-channel-core', fromId: 'obj-channel', toId: 'obj-core', type: 'arrow', label: 'Input Flow', color: '#f59e0b', animatedFlow: true },
-          { id: 'conn-base-core', fromId: 'obj-structural-base', toId: 'obj-core', type: 'dashed_line', label: 'Structural Support', color: '#6366f1', animatedFlow: false }
-        ]
+        environmentLighting: lightingPreset,
+        groundPlane: { show: true, type: groundType, color: groundColor },
+        objects: sceneObjects,
+        connections: sceneConnections
       }
     },
     keyTakeaways: [

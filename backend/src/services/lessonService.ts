@@ -14,7 +14,8 @@ export class LessonService {
   constructor() {
     const apiKey = process.env.GEMINI_API_KEY;
     const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
-    this.hasApiKey = Boolean(apiKey && apiKey.trim().length > 0 && apiKey !== 'your_gemini_api_key_here');
+    // Valid Google AI Studio API keys strictly start with 'AIzaSy'
+    this.hasApiKey = Boolean(apiKey && apiKey.trim().length > 0 && apiKey.trim().startsWith('AIzaSy'));
 
     this.fallbackProvider = new FallbackMockProvider();
     if (this.hasApiKey) {

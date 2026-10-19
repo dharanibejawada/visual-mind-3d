@@ -11,6 +11,7 @@ import { WaveVisualization } from './WaveVisualization';
 import { InteractiveDiagramVisualization } from './InteractiveDiagramVisualization';
 import { AnimalVisualization } from './AnimalVisualization';
 import { SnakeVisualization } from './SnakeVisualization';
+import { ButterflyVisualization } from './ButterflyVisualization';
 import { Universal3DViewer } from './Universal3DViewer';
 
 export interface VisualizationRegistryEntry {
@@ -23,6 +24,46 @@ export interface VisualizationRegistryEntry {
 }
 
 export const VISUALIZATION_REGISTRY: Record<string, VisualizationRegistryEntry> = {
+  'butterfly': {
+    id: 'butterfly',
+    name: 'Lepidoptera & Butterfly Anatomy 3D',
+    subject: 'Entomology & Evolutionary Biology',
+    renderMode: '3d',
+    cameraPosition: [0, 2, 6],
+    component: ButterflyVisualization,
+  },
+  'butterflies': {
+    id: 'butterflies',
+    name: 'Butterfly Anatomy & Aerodynamics 3D',
+    subject: 'Entomology & Evolutionary Biology',
+    renderMode: '3d',
+    cameraPosition: [0, 2, 6],
+    component: ButterflyVisualization,
+  },
+  'lepidoptera': {
+    id: 'lepidoptera',
+    name: 'Lepidoptera Biology 3D',
+    subject: 'Entomology & Evolutionary Biology',
+    renderMode: '3d',
+    cameraPosition: [0, 2, 6],
+    component: ButterflyVisualization,
+  },
+  'moth': {
+    id: 'moth',
+    name: 'Lepidoptera Anatomy 3D',
+    subject: 'Entomology & Evolutionary Biology',
+    renderMode: '3d',
+    cameraPosition: [0, 2, 6],
+    component: ButterflyVisualization,
+  },
+  'caterpillar': {
+    id: 'caterpillar',
+    name: 'Metamorphosis & Butterfly Biology 3D',
+    subject: 'Entomology & Evolutionary Biology',
+    renderMode: '3d',
+    cameraPosition: [0, 2, 6],
+    component: ButterflyVisualization,
+  },
   'snake': {
     id: 'snake',
     name: 'Serpent & Snake Anatomy 3D',
@@ -210,11 +251,11 @@ export const VISUALIZATION_REGISTRY: Record<string, VisualizationRegistryEntry> 
 };
 
 export function getVisualizationEntry(templateId?: string, hasScene?: boolean): VisualizationRegistryEntry {
+  if (templateId && templateId !== 'universal-3d' && templateId !== 'dynamic-3d' && VISUALIZATION_REGISTRY[templateId]) {
+    return VISUALIZATION_REGISTRY[templateId];
+  }
   if (hasScene || templateId === 'universal-3d' || templateId === 'dynamic-3d') {
     return VISUALIZATION_REGISTRY['universal-3d'];
-  }
-  if (templateId && VISUALIZATION_REGISTRY[templateId]) {
-    return VISUALIZATION_REGISTRY[templateId];
   }
   // Default fallback for any arbitrary topic: Universal 3D Explorer!
   return VISUALIZATION_REGISTRY['universal-3d'];

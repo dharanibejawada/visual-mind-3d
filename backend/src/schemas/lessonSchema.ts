@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const SupportedTemplates = [
   'universal-3d',
+  'butterfly',
   'animal-biology',
   'animal',
   'snake',
